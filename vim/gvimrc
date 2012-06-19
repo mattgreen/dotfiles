@@ -1,0 +1,20 @@
+if has("gui_macvim")
+  " Bind PeepOpen to Command T
+  macmenu &File.New\ Tab key=<nop>
+  map  <D-t> <Plug>PeepOpen
+  imap <D-t> <Esc><Plug>PeepOpen
+
+  " Remap New Tab to Command-Shift-T
+  macmenu &File.New\ Tab key=<D-S-t>
+end
+
+" Disable beep
+set visualbell
+
+" Hide toolbar
+set guioptions-=T
+
+" Set font and theme
+set guifont=Monaco:h12
+
+

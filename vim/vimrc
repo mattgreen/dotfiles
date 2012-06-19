@@ -1,0 +1,21 @@
+set nocompatible
+filetype off
+
+call pathogen#infect()
+
+syntax on
+filetype plugin indent on
+
+set number
+set ruler
+
+set nowrap
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
