@@ -1,13 +1,14 @@
 set nocompatible
+
 filetype off
-
 call pathogen#infect()
-
-syntax on
 filetype plugin indent on
 
 set number
 set ruler
+syntax on
+
+set encoding=utf-8
 
 set nowrap
 set tabstop=2
@@ -19,3 +20,17 @@ set hlsearch
 set incsearch
 set ignorecase
 set smartcase
+
+" Always show status bar
+set laststatus=2
+
+" Recognize certain file types as Ruby
+au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru}   set ft=ruby
+
+" Allow backspacing over everything
+set backspace=indent,eol,start
+
+" Allow shift-arrow key to work in MacVim
+let macvim_hig_shift_movement = 1
+
+:colorscheme ir_black
