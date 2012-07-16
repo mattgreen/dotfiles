@@ -36,5 +36,5 @@ source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 setopt prompt_subst
+unsetopt correct_all
 
-export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/usr/X11/bin

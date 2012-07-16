@@ -1,11 +1,24 @@
 if has("gui_macvim")
   " Bind PeepOpen to Command T
   macmenu &File.New\ Tab key=<nop>
-  map  <D-t> <Plug>PeepOpen
-  imap <D-t> <Esc><Plug>PeepOpen
+  map  <silent> <D-t> <Plug>PeepOpen
+  imap <silent> <D-t> <C-C><Plug>PeepOpen
+  cmap <silent> <D-t> <C-C><Plug>PeepOpen
+  vmap <silent> <D-t> <C-C><Plug>PeepOpen
 
   " Remap New Tab to Command-Shift-T
   macmenu &File.New\ Tab key=<D-S-t>
+
+  " Command+1-0 jumps to tab 1-10
+  let s:windowmapnr = 0
+  let s:wins='1234567890'
+  while (s:windowmapnr < strlen(s:wins))
+    exe 'noremap <silent> <D-' . s:wins[s:windowmapnr] . '> ' . (s:windowmapnr + 1) . 'gt'
+    exe 'inoremap <silent> <D-' . s:wins[s:windowmapnr] . '> <C-O>' . (s:windowmapnr + 1) . 'gt'
+    exe 'cnoremap <silent> <D-' . s:wins[s:windowmapnr] . '> <C-C>' . (s:windowmapnr + 1) . 'gt'
+    exe 'vnoremap <silent> <D-' . s:wins[s:windowmapnr] . '> <C-C>' . (s:windowmapnr + 1) . 'gt'
+    let s:windowmapnr += 1
+  endwhile
 end
 
 " Disable beep
@@ -16,5 +29,4 @@ set guioptions-=T
 
 " Set font and theme
 set guifont=Monaco:h12
-
 
