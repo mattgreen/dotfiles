@@ -1,0 +1,57 @@
+alias be='bundle exec'
+alias ls='ls -GFh'
+
+bind "set completion-ignore-case on"
+bind "set show-all-if-ambiguous on"
+
+set_prompt()
+{
+  local NORMAL="\[\033[0m\]"
+  local BLACK="\[\033[0;30m\]"
+  local RED="\[\033[0;31m\]"
+  local GREEN="\[\033[0;32m\]"
+  local YELLOW="\[\033[0;33m\]"
+  local BLUE="\[\033[0;34m\]"
+  local MAGENTA="\[\033[0;35m\]"
+  local CYAN="\[\033[0;36m\]"
+  local WHITE="\[\033[0;37m\]"
+  local BOLD_BLACK="\[\033[1;30m\]"
+  local BOLD_RED="\[\033[1;31m\]"
+  local BOLD_GREEN="\[\033[1;32m\]"
+  local BOLD_YELLOW="\[\033[1;33m\]"
+  local BOLD_BLUE="\[\033[1;34m\]"
+  local BOLD_MAGENTA="\[\033[1;35m\]"
+  local BOLD_CYAN="\[\033[1;36m\]"
+  local BOLD_WHITE="\[\033[1;37m\]"
+
+  # Build git status, if we're in a repo.
+  local branch=""
+  local dirty=" "
+
+  local repo_path=`git rev-parse --git-dir 2>/dev/null`
+  if [[ $repo_path != '' && $repo_path != '~' && $repo_path != "$HOME/.git" ]]; then
+    branch=`git symbolic-ref -q HEAD | sed 's/refs\/heads\///'`
+
+    local mode=""
+    if [[ -e "$repo_path/BISECT_LOG" ]]; then
+      mode=" +bisect"
+    elif [[ -e "$repo_path/MERGE_HEAD" ]]; then
+      mode=" +merge"
+    elif [[ -e "$repo_path/rebase" || -e "$repo_path/rebase-apply" || -e "$repo_path/rebase-merge" || -e "$repo_path/../.dotest" ]]; then
+      mode=" +rebase"
+    fi
+
+    if [[ "$repo_path" != '.' && `git ls-files -mo` != "" ]]; then
+      dirty="✗"
+    fi
+  fi
+
+  let fillsize=${COLUMNS}-${#PWD}-${#branch}-${#dirty}-3 # two spaces, and return
+
+  local filler="                                                                                                                                 "
+  filler="${filler:0:${fillsize}}"
+
+  export PS1="\n${NORMAL}${GREEN}$PWD${NORMAL}$filler$branch ${RED}$dirty${NORMAL} \n$ "
+}
+
+PROMPT_COMMAND=set_prompt
