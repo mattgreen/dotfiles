@@ -4,8 +4,17 @@ filetype off
 call pathogen#infect()
 filetype plugin indent on
 
+" Swapfiles are stored in ~/.vim/backup
+silent !mkdir ~/.vim > /dev/null 2>&1
+silent !mkdir ~/.vim/backup > /dev/null 2>&1
+
+set backup
+set backupdir=~/.vim/backup,~/.tmp,~/tmp,/var/tmp,/tmp
+set directory=~/.vim/backup,~/.tmp,~/tmp,/var/tmp,/tmp
+
 set number
 set ruler
+set showcmd
 syntax on
 
 set encoding=utf-8
@@ -20,6 +29,7 @@ set hlsearch
 set incsearch
 set ignorecase
 set smartcase
+set showmatch
 
 " Always show status bar
 set laststatus=2
