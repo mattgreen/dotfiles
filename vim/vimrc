@@ -34,3 +34,6 @@ set backspace=indent,eol,start
 let macvim_hig_shift_movement = 1
 
 :colorscheme ir_black
+
+" Not desirable
+let g:netrw_dirhistmax=0
