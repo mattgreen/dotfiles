@@ -1,8 +1,17 @@
+source ~/.bashrc
+
 alias be='bundle exec'
 alias ls='ls -GFh'
 
 bind "set completion-ignore-case on"
 bind "set show-all-if-ambiguous on"
+
+export CLICOLOR=1
+export TERM=xterm-color
+
+if [ -f `brew --prefix`/etc/bash_completion ]; then
+  . `brew --prefix`/etc/bash_completion
+fi
 
 set_prompt()
 {
@@ -46,9 +55,9 @@ set_prompt()
     fi
   fi
 
-  let fillsize=${COLUMNS}-${#PWD}-${#branch}-${#dirty}-3 # two spaces, and return
+  local let fillsize=${COLUMNS}-${#PWD}-${#branch}-${#dirty}-3 # two spaces, and return
 
-  local filler="                                                                                                                                 "
+  local filler="                                                                                                                                                                                                                                 "
   filler="${filler:0:${fillsize}}"
 
   export PS1="\n${NORMAL}${GREEN}$PWD${NORMAL}$filler$branch ${RED}$dirty${NORMAL} \n$ "
