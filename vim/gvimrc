@@ -14,11 +14,14 @@ if has("gui_macvim")
   let s:wins='1234567890'
   while (s:windowmapnr < strlen(s:wins))
     exe 'noremap <silent> <D-' . s:wins[s:windowmapnr] . '> ' . (s:windowmapnr + 1) . 'gt'
-    exe 'inoremap <silent> <D-' . s:wins[s:windowmapnr] . '> <C-O>' . (s:windowmapnr + 1) . 'gt'
+    exe 'inoremap <silent> <D-' . s:wins[s:windowmapnr] . '> <C-C>' . (s:windowmapnr + 1) . 'gt'
     exe 'cnoremap <silent> <D-' . s:wins[s:windowmapnr] . '> <C-C>' . (s:windowmapnr + 1) . 'gt'
     exe 'vnoremap <silent> <D-' . s:wins[s:windowmapnr] . '> <C-C>' . (s:windowmapnr + 1) . 'gt'
     let s:windowmapnr += 1
   endwhile
+
+  map <D-/> <plug>NERDCommenterToggle
+  imap <D-/> <C-C><plug>NERDCommenterToggle
 end
 
 " Disable beep

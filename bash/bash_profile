@@ -1,5 +1,9 @@
 source ~/.bashrc
 
+export HISTSIZE=2000
+export HISTCONTROL=ignoredups
+shopt -s histappend
+
 alias be='bundle exec'
 alias ls='ls -GFh'
 
@@ -8,10 +12,6 @@ bind "set show-all-if-ambiguous on"
 
 export CLICOLOR=1
 export TERM=xterm-color
-
-if [ -f `brew --prefix`/etc/bash_completion ]; then
-  . `brew --prefix`/etc/bash_completion
-fi
 
 set_prompt()
 {
@@ -24,6 +24,7 @@ set_prompt()
   local MAGENTA="\[\033[0;35m\]"
   local CYAN="\[\033[0;36m\]"
   local WHITE="\[\033[0;37m\]"
+  local ORANGE="\[\033[38;5;172m\]"
   local BOLD_BLACK="\[\033[1;30m\]"
   local BOLD_RED="\[\033[1;31m\]"
   local BOLD_GREEN="\[\033[1;32m\]"
@@ -33,12 +34,18 @@ set_prompt()
   local BOLD_CYAN="\[\033[1;36m\]"
   local BOLD_WHITE="\[\033[1;37m\]"
 
+  local GRAY="\[\033[38;5;234m\]"
+  local GRAY_BG="\[\033[48;5;234m\]"
+
   # Build git status, if we're in a repo.
+  local on=""
   local branch=""
-  local dirty=" "
+  local dirty=""
+  local ldivider=""
 
   local repo_path=`git rev-parse --git-dir 2>/dev/null`
   if [[ $repo_path != '' && $repo_path != '~' && $repo_path != "$HOME/.git" ]]; then
+    on=" on "
     branch=`git symbolic-ref -q HEAD | sed 's/refs\/heads\///'`
 
     local mode=""
@@ -50,17 +57,24 @@ set_prompt()
       mode=" +rebase"
     fi
 
-    if [[ "$repo_path" != '.' && `git ls-files -mo` != "" ]]; then
-      dirty="✗"
-    fi
+    #if [[ "$repo_path" != '.' && `git ls-files -mo --exclude-standard` != "" ]]; then
+    #  dirty="✗ "
+    #fi
   fi
 
-  local let fillsize=${COLUMNS}-${#PWD}-${#branch}-${#dirty}-3 # two spaces, and return
-
-  local filler="                                                                                                                                                                                                                                 "
-  filler="${filler:0:${fillsize}}"
-
-  export PS1="\n${NORMAL}${GREEN}$PWD${NORMAL}$filler$branch ${RED}$dirty${NORMAL} \n$ "
+  export PS1="\n${NORMAL}${GREEN}$PWD${NORMAL}$on${CYAN}$branch ${RED}$dirty${NORMAL}\n$ "
 }
 
 PROMPT_COMMAND=set_prompt
+
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+  . $(brew --prefix)/etc/bash_completion
+fi
+
+export RUBY_HEAP_MIN_SLOTS=1000000
+export RUBY_HEAP_SLOTS_INCREMENT=1000000
+export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
+export RUBY_GC_MALLOC_LIMIT=100000000
+export RUBY_HEAP_FREE_MIN=500000
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
