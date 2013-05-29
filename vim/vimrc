@@ -7,9 +7,7 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " Appearance
-Bundle 'nelstrom/vim-mac-classic-theme'
-Bundle 'flazz/vim-colorschemes'
-Bundle 'cstrahan/grb256'
+Bundle 'mattgreen/vim-github-colorscheme'
 
 " Language support
 Bundle 'kchmck/vim-coffee-script'
@@ -20,7 +18,6 @@ Bundle 'jnwhiteh/vim-golang'
 Bundle 'tpope/vim-rails'
 
 " Plugins
-Bundle 'mileszs/ack.vim'
 Bundle 'tpope/vim-eunuch'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
@@ -28,8 +25,6 @@ Bundle 'scrooloose/nerdcommenter'
 Bundle 'shemerey/vim-peepopen'
 Bundle 'airblade/vim-rooter'
 Bundle 'tmhedberg/matchit'
-Bundle 'kana/vim-textobj-user'
-Bundle 'nelstrom/vim-textobj-rubyblock'
 
 filetype plugin indent on
 
@@ -58,6 +53,9 @@ set smartcase
 set showmatch
 set gdefault
 
+autocmd Filetype c setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+autocmd Filetype cpp setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+
 " Always show status bar
 set laststatus=2
 
@@ -75,6 +73,8 @@ colorscheme github
 
 " Not desirable
 let g:netrw_dirhistmax=0
+
+let g:syntastic_error_symbol='✗'
 
 runtime macros/matchit.vim
 

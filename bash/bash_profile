@@ -1,17 +1,29 @@
 source ~/.bashrc
 
+# Useful aliases
+alias be='bundle exec'
+alias ls='ls -GFh'
+
+# Necessary term settings
+export CLICOLOR=1
+export TERM=xterm-color
+
+# Retain more history
 export HISTSIZE=2000
 export HISTCONTROL=ignoredups
 shopt -s histappend
 
-alias be='bundle exec'
-alias ls='ls -GFh'
+# Default iOS provisioning profile
+export DEFAULT_PROVISIONING_PROFILE=/Users/matt/Library/MobileDevice/Provisioning/bandstreamr.mobileprovision
 
+# readline settings
 bind "set completion-ignore-case on"
 bind "set show-all-if-ambiguous on"
 
-export CLICOLOR=1
-export TERM=xterm-color
+# bash-completion 2.0 is finally usable
+if [ -f $(brew --prefix)/share/bash-completion/bash_completion ]; then
+  . $(brew --prefix)/share/bash-completion/bash_completion
+fi
 
 set_prompt()
 {
@@ -66,15 +78,3 @@ set_prompt()
 }
 
 PROMPT_COMMAND=set_prompt
-
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-  . $(brew --prefix)/etc/bash_completion
-fi
-
-export RUBY_HEAP_MIN_SLOTS=1000000
-export RUBY_HEAP_SLOTS_INCREMENT=1000000
-export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
-export RUBY_GC_MALLOC_LIMIT=100000000
-export RUBY_HEAP_FREE_MIN=500000
-
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
