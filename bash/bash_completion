@@ -1,0 +1,10 @@
+_j()
+{
+  local cur=${COMP_WORDS[COMP_CWORD]}
+  local prev=${COMP_WORDS[COMP_CWORD-1]}
+
+  pushd "/Users/matt/Projects" >/dev/null
+  _filedir -d
+  popd >/dev/null
+}
+complete -F _j j

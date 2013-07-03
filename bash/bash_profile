@@ -3,6 +3,13 @@ source ~/.bashrc
 # Useful aliases
 alias be='bundle exec'
 alias ls='ls -GFh'
+alias gs='git status'
+alias j=jump
+
+# Supporting functions
+jump() {
+  cd /Users/matt/Projects/$1
+}
 
 # Necessary term settings
 export CLICOLOR=1
