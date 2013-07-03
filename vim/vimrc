@@ -40,10 +40,11 @@ syntax on
 set encoding=utf-8
 
 set nowrap
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 set expandtab
+set autoindent
 "set list                        " show invisible characters
 "set listchars=tab:>·,trail:·    " but only show tabs and trailing whitespace
 set hlsearch
@@ -73,7 +74,5 @@ colorscheme github
 
 " Not desirable
 let g:netrw_dirhistmax=0
-
-let g:syntastic_error_symbol='✗'
 
 runtime macros/matchit.vim
