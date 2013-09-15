@@ -1,8 +1,10 @@
+fpath=($HOME/.config/zsh/functions $fpath)
+
 autoload -U compinit
+compinit
 
 for file in $HOME/.config/**/*.zsh
 do
     source $file
 done
 
-compinit
