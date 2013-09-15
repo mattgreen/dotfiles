@@ -7,7 +7,7 @@ Though I took the time to write a nice README, my dotfiles aren't very configura
 
 ### What's Nifty?
 * Stylish, two-line [prompt](https://github.com/mattgreen/dotfiles/blob/master/zsh/prompt.zsh) with git info
-* [j alias](https://github.com/mattgreen/dotfiles/blob/master/zsh/jump.zsh) to switch between projects quickly
+* [Jump alias](https://github.com/mattgreen/dotfiles/blob/master/zsh/jump.zsh) to switch between projects quickly
 
 ### Screenshot
 ![Preview](http://f.cl.ly/items/0Y2d2A241z1r0j2U3D1q/preview.png)
