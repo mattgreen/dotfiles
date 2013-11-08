@@ -13,14 +13,13 @@ Bundle 'mattgreen/vim-github-colorscheme'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'jnwhiteh/vim-golang'
+Bundle 'plasticboy/vim-markdown'
 
 " Library support
 Bundle 'tpope/vim-rails'
 
 " Plugins
 Bundle 'tpope/vim-eunuch'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-surround'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'shemerey/vim-peepopen'
 Bundle 'airblade/vim-rooter'
@@ -33,6 +32,8 @@ set nobackup
 set noswapfile
 
 set number
+set numberwidth=5
+
 set ruler
 set showcmd
 syntax on
@@ -66,13 +67,25 @@ au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru}   set ft
 " Allow backspacing over everything
 set backspace=indent,eol,start
 
-" Allow shift-arrow key to work in MacVim
-let macvim_hig_shift_movement = 1
-
 set t_Co=256
 colorscheme github
 
 " Not desirable
 let g:netrw_dirhistmax=0
+
+let mapleader=","
+
+" Remove trailing whitespace on save
+function! TrimWhiteSpace()
+    let l:winview = winsaveview()
+    %s/\s\+$//e
+    call winrestview(l:winview)
+endfunction
+
+" Reload vimrc on edit
+augroup reload_vimrc " {
+    autocmd!
+    autocmd BufWritePost $MYVIMRC source $MYVIMRC
+augroup END " }
 
 runtime macros/matchit.vim
