@@ -1,9 +1,9 @@
-fpath=($HOME/.config/zsh/completions $fpath)
+fpath=($HOME/.dotfiles/zsh/completions $fpath)
 
 autoload -U compinit
 compinit
 
-for file in $HOME/.config/**/*.zsh
+for file in $HOME/.dotfiles/**/*.zsh
 do
     source $file
 done

@@ -1,3 +1,3 @@
-hash -d dotfiles=/Users/matt/.config
+hash -d dotfiles=/Users/matt/.dotfiles
 
 alias reload!='. ~/.zshrc'
