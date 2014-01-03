@@ -10,4 +10,5 @@ setopt HIST_REDUCE_BLANKS # Drop extraneous whitespace
 
 # Terminal config
 export CLICOLOR=1
+export EDITOR="mvim -f"
 export TERM=xterm-256color
