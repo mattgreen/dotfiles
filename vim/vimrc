@@ -46,8 +46,8 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 set autoindent
-"set list                        " show invisible characters
-"set listchars=tab:>·,trail:·    " but only show tabs and trailing whitespace
+set list
+set listchars=trail:·
 set hlsearch
 set incsearch
 set ignorecase
