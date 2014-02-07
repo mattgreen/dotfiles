@@ -17,8 +17,10 @@ Bundle 'plasticboy/vim-markdown'
 
 " Library support
 Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-haml'
 
 " Plugins
+Bundle 'rking/ag.vim'
 Bundle 'tpope/vim-eunuch'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'shemerey/vim-peepopen'
