@@ -1,14 +1,11 @@
 precmd() {
-    local currentpath=${PWD/${HOME}/\~}
-    local tabtitle=$(basename "$currentpath")
+    local tabtitle=$(basename "$PWD")
 
-    echo -ne "\e]1;${tabtitle: -24}\a"  # Tab title (max 24 chars)
-    echo -ne "\e]2;${currentpath}\a"    # Window title
+    echo -ne "\e]1;${tabtitle: -24}\a"
+    echo -ne "\e]2;$PWD\a"
 }
 
 preexec() {
-    local currentpath=${PWD/${HOME}/\~}
-
     echo -ne "\e]1;$2\a"
-    echo -ne "\e]2;${currentpath}\a"
+    echo -ne "\e]2;$PWD\a"
 }
