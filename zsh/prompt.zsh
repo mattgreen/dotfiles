@@ -7,11 +7,11 @@ prompt_git_info() {
 
         local mode=""
         if [[ -e "$repo_path/BISECT_LOG" ]]; then
-          mode=" +bisect"
+          mode="+bisect"
         elif [[ -e "$repo_path/MERGE_HEAD" ]]; then
-          mode=" +merge"
+          mode="+merge"
         elif [[ -e "$repo_path/rebase" || -e "$repo_path/rebase-apply" || -e "$repo_path/rebase-merge" || -e "$repo_path/../.dotest" ]]; then
-          mode=" +rebase"
+          mode="+rebase"
         fi
 
         local dirty_icon=""
