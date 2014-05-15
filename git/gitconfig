@@ -1,14 +1,14 @@
 [user]
-	name = Matt Green
-	email = mattgreenrocks@gmail.com
+    name = Matt Green
+    email = mattgreenrocks@gmail.com
 [color]
     branch = auto
     diff = auto
     status = auto
 [github]
-	user = mattgreen
+    user = mattgreen
 [core]
-	editor = /usr/bin/vim
-	excludesfile = /Users/matt/.dotfiles/git/gitignore
+    editor = /usr/bin/vim
+    excludesfile = /Users/matt/.dotfiles/git/gitignore
 [push]
-	default = tracking
+    default = tracking
