@@ -49,7 +49,7 @@ set softtabstop=4
 set expandtab
 set autoindent
 set list
-set listchars=trail:·
+set listchars=tab:\ \ ,trail:·
 set hlsearch
 set incsearch
 set ignorecase
