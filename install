@@ -10,6 +10,9 @@ then
     # git
     ln -sfn $DOTFILES_ROOT/git/gitconfig ~/.gitconfig
 
+    # ruby
+    ln -sfn $DOTFILES_ROOT/ruby/gemrc ~/.gemrc
+
     # vim
     ln -sfn $DOTFILES_ROOT/vim ~/.vim
     ln -sfn $DOTFILES_ROOT/vim/vimrc ~/.vimrc
