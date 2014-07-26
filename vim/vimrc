@@ -2,30 +2,32 @@ set nocompatible
 filetype off
 
 set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+call vundle#begin()
 
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/vundle'
 
 " Appearance
-Bundle 'mattgreen/vim-github-colorscheme'
+Plugin 'mattgreen/vim-github-colorscheme'
 
 " Language support
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'jnwhiteh/vim-golang'
-Bundle 'plasticboy/vim-markdown'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'jnwhiteh/vim-golang'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'dag/vim2hs'
 
 " Library support
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-haml'
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-haml'
 
 " Plugins
-Bundle 'rking/ag.vim'
-Bundle 'tpope/vim-eunuch'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'shemerey/vim-peepopen'
-Bundle 'airblade/vim-rooter'
-Bundle 'tmhedberg/matchit'
+Plugin 'tpope/vim-eunuch'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'shemerey/vim-peepopen'
+Plugin 'airblade/vim-rooter'
+Plugin 'tmhedberg/matchit'
+
+call vundle#end()
 
 filetype plugin indent on
 
@@ -76,6 +78,12 @@ colorscheme github
 let g:netrw_dirhistmax=0
 
 let mapleader=","
+
+set nofoldenable
+let g:haskell_conceal_enumerations = 0
+
+" Seriously, I said DON'T FOLD
+au FileType mkd setlocal nofoldenable
 
 " Remove trailing whitespace on save
 function! TrimWhiteSpace()
