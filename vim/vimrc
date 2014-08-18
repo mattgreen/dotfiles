@@ -80,6 +80,7 @@ let g:netrw_dirhistmax=0
 let mapleader=","
 
 set nofoldenable
+let g:haskell_conceal_wide = 0
 let g:haskell_conceal_enumerations = 0
 
 " Seriously, I said DON'T FOLD
