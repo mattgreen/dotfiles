@@ -15,3 +15,5 @@
 
 [alias]
     cleanup = "!git branch --merged | grep -v master | xargs -n 1 git branch -d"
+    undo = reset --soft HEAD~1
+    unpushed = log --stat origin/master..HEAD
