@@ -16,7 +16,7 @@ prompt_git_info() {
 
         local dirty_icon=""
         if [ -n "$(git status -s --ignore-submodules=dirty)" ]; then
-            dirty_icon=" $fg[cyan]•%{$reset_color%}"
+            dirty_icon=" %{$fg[cyan]%}•%{$reset_color%}"
         fi
 
         local branch_color="$fg[cyan]"
