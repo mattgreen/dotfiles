@@ -9,7 +9,7 @@
     user = mattgreen
 [core]
     editor = /usr/bin/vim
-    excludesfile = /Users/matt/.dotfiles/git/gitignore
+    excludesfile = ~/.dotfiles/git/gitignore
 [push]
     default = simple
 
