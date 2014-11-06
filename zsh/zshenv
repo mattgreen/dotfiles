@@ -5,5 +5,10 @@ typeset -U path
 # Favor Homebrew binaries over system
 path=(/usr/local/bin /usr/local/sbin $path)
 
+# If installed, use coreutils
+if [ -d /usr/local/opt/coreutils/libexec/gnubin ]; then
+    path=(/usr/local/opt/coreutils/libexec/gnubin $path)
+fi
+
 # Add Heroku binaries to PATH
 path=(/usr/local/heroku/bin $path)
