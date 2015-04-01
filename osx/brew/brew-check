@@ -1,0 +1,1 @@
+brew update 1>/dev/null && brew outdated
