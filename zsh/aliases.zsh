@@ -1,5 +1,5 @@
-alias ls='ls -F --color'
-alias ll='ls -lh --color'
+alias ls='ls -F -G'
+alias ll='ls -lh -G'
 
 alias ..='cd ..'
 alias ...='cd ../..'
