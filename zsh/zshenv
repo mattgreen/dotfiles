@@ -12,6 +12,3 @@ path=($HOME/.dotfiles/osx/brew $path)
 if [ -d /usr/local/opt/coreutils/libexec/gnubin ]; then
     path=(/usr/local/opt/coreutils/libexec/gnubin $path)
 fi
-
-# Add Heroku binaries to PATH
-path=(/usr/local/heroku/bin $path)

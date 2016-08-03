@@ -10,11 +10,10 @@ Plugin 'gmarik/vundle'
 Plugin 'mattgreen/vim-github-colorscheme'
 
 " Language support
-Plugin 'kchmck/vim-coffee-script'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'jnwhiteh/vim-golang'
 Plugin 'plasticboy/vim-markdown'
-Plugin 'dag/vim2hs'
+Plugin 'ElmCast/elm-vim'
 
 " Library support
 Plugin 'tpope/vim-rails'
@@ -45,11 +44,13 @@ syntax on
 set encoding=utf-8
 
 set nowrap
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set expandtab
+set smartindent
 set autoindent
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+
 set list
 set listchars=tab:\ \ ,trail:·
 set hlsearch

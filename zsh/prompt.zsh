@@ -27,5 +27,5 @@ prompt_git_info() {
 setopt PROMPT_SUBST
 
 PROMPT='
-%{$fg[green]%}%d%{$reset_color%}$(prompt_git_info)
+%{$fg[green]%}%~%{$reset_color%}$(prompt_git_info)
 ❯ '

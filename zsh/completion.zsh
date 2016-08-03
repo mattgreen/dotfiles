@@ -7,3 +7,6 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
 # Pasting with tabs doesn't perform completion
 zstyle ':completion:*' insert-tab pending
+
+# Disable directory completion removing slashes
+setopt no_auto_remove_slash
