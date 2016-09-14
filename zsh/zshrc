@@ -44,6 +44,19 @@ zstyle ':completion:*' insert-tab pending
 # Disable directory completion removing slashes
 setopt no_auto_remove_slash
 
+# Consider / a word separator
+WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+
+# Use emacs mode; modal CLI editing is weird
+bindkey -e
+bindkey "^[[D" beginning-of-line
+bindkey "^[[C" end-of-line
+bindkey "^[[1;9C" forward-word
+bindkey "^[[1;9D" backward-word
+
+bindkey "^U" backward-kill-line
+bindkey "^X\\x7f" backward-kill-line
+
 # Jump support
 function jump() {
     cd ~/Projects/$1
