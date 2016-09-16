@@ -10,7 +10,7 @@ path=($HOME/.dotfiles/osx/brew $path)
 
 # Aliases
 alias ls='ls -F'
-alias ll='ls -lh'
+alias ll='ls -lha'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias reload!='. ~/.zshrc'
@@ -49,11 +49,8 @@ WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
 # Use emacs mode; modal CLI editing is weird
 bindkey -e
-bindkey "^[[D" beginning-of-line
-bindkey "^[[C" end-of-line
 bindkey "^[[1;9C" forward-word
 bindkey "^[[1;9D" backward-word
-
 bindkey "^U" backward-kill-line
 bindkey "^X\\x7f" backward-kill-line
 
