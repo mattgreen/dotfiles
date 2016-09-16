@@ -352,7 +352,7 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>410 377 620 392 0 0 1440 877 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>199 259 796 473 0 0 1440 877 </string>
+	<string>199 220 796 473 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>1 168 745 707 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
@@ -560,7 +560,7 @@
 			<key>Columns</key>
 			<integer>105</integer>
 			<key>Command</key>
-			<string></string>
+			<string>/usr/local/bin/zsh -i</string>
 			<key>Cursor Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -593,7 +593,7 @@
 				<real>0.77043700218200684</real>
 			</dict>
 			<key>Custom Command</key>
-			<string>No</string>
+			<string>Yes</string>
 			<key>Custom Directory</key>
 			<string>Recycle</string>
 			<key>Default Bookmark</key>
