@@ -13,6 +13,7 @@ Plugin 'mattgreen/vim-github-colorscheme'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'jnwhiteh/vim-golang'
 Plugin 'plasticboy/vim-markdown'
+Plugin 'rust-lang/rust.vim'
 Plugin 'ElmCast/elm-vim'
 
 " Library support
