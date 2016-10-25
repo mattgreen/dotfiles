@@ -3,7 +3,7 @@ autoload -U colors && colors
 prompt_git_info() {
     local repo_path=`git rev-parse --git-dir 2>/dev/null`
     if [[ $repo_path != '' && $repo_path != '~' && $repo_path != "$HOME/.git" ]]; then
-        local branch=`git symbolic-ref --short HEAD`
+        local branch=`git symbolic-ref --short HEAD 2>/dev/null || echo '(no branch)'`
 
         local mode=""
         if [[ -e "$repo_path/BISECT_LOG" ]]; then
