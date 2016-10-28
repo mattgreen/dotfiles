@@ -11,6 +11,7 @@ path=($HOME/.dotfiles/osx/brew $path)
 # Aliases
 alias ls='ls -F'
 alias ll='ls -lha'
+alias grep='grep --color=auto'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias reload!='. ~/.zshrc'
