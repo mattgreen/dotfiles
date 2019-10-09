@@ -1,62 +1,80 @@
 #zmodload zsh/zprof
 
-typeset -U path
+# Initialize completions
+autoload -Uz compinit
+for dump in ~/.zcompdump(N.mh+24); do
+  compinit
+done
+compinit -C
 
-# Favor Homebrew binaries over system
-path=(/usr/local/bin /usr/local/sbin $path)
+# zsh config
+setopt APPEND_HISTORY
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_REDUCE_BLANKS
 
-# Add external brew commands
-path=($HOME/.dotfiles/osx/brew $path)
-
-# Aliases
-alias ls='ls -F'
-alias ll='ls -lha'
-alias grep='grep --color=auto'
-alias ..='cd ..'
-alias ...='cd ../..'
-alias reload!='. ~/.zshrc'
-alias benchdotfilesloadtime='for i in $(seq 1 10); do /usr/bin/time zsh -i -c exit; done'
-
-alias gs='git status -s'
-
-# History config
 HISTFILE=~/.zsh_history
 HISTSIZE=4000
 SAVEHIST=4000
 
-setopt APPEND_HISTORY
-setopt HIST_IGNORE_ALL_DUPS
-setopt HIST_REDUCE_BLANKS # Drop extraneous whitespace
+# Favor Homebrew binaries over system
+typeset -U path
+path=(/usr/local/bin /usr/local/sbin $path)
 
-# Terminal config
-export CLICOLOR=1
-export EDITOR="mvim -f"
-export TERM=xterm-256color
+# Aliases
+alias ls='ls -GF'
+alias ll='ls -lha'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias reload!='. ~/.zshrc'
 
-# Color completions properly
-export LS_COLORS="di=34;40:ln=35;40:so=32;40:pi=33;40:ex=31;40:bd=34;46:cd=34;43:su=0;41:sg=0;46:tw=0;42:ow=0;43:"
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+alias gs='git status -s'
 
-# Case-insensitive matching
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+alias bench_dotfiles='time (repeat 10 zsh -is </dev/null)'
 
-# Pasting with tabs doesn't perform completion
-zstyle ':completion:*' insert-tab pending
+# Set window/tab titles
+set_cmd_titles() {
+    local tabtitle="${PWD##*/}"
+    echo -ne "\e]1;${tabtitle: -24}\a"
+    echo -ne "\e]2;$PWD\a"
+}
 
-# Disable directory completion removing slashes
-setopt no_auto_remove_slash
+set_exec_titles() {
+    echo -ne "\e]1;$2\a"
+    echo -ne "\e]2;$PWD\a"
+}
 
-# Consider / a word separator
-WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd set_cmd_titles
+add-zsh-hook preexec set_exec_titles
 
-# Use emacs mode; modal CLI editing is weird
-bindkey -e
-bindkey "^[[1;9C" forward-word
-bindkey "^[[1;9D" backward-word
-bindkey "^U" backward-kill-line
-bindkey "^X\\x7f" backward-kill-line
+# Prompt
+source ~/gitstatus/gitstatus.plugin.zsh
+gitstatus_stop PROMPT && gitstatus_start -s -1 -u -1 -c -1 -d -1 PROMPT
 
-# Jump support
+autoload -Uz colors && colors
+
+function prompt() {
+    local git_info=""
+    if gitstatus_query PROMPT && [[ $VCS_STATUS_RESULT == ok-sync ]]; then
+        local branch=${${VCS_STATUS_LOCAL_BRANCH:-@${VCS_STATUS_COMMIT}}//\%/%%}
+        local dirty=""
+
+        if [ "$VCS_STATUS_HAS_STAGED" = 1 ] || [ "$VCS_STATUS_HAS_UNSTAGED" = 1 ] || [ "$VCS_STATUS_HAS_UNTRACKED" = 1 ]
+        then
+            dirty=' •'
+        fi
+
+        git_info=" on %{$fg[cyan]%}${branch}${dirty}%{$reset_color%}"
+    fi
+
+    local newline=$'\n'
+    PROMPT="${newline}%{$fg[green]%}%~%{$reset_color%}${git_info}${newline}❯ "
+    setopt noprompt{bang,subst} promptpercent
+}
+
+add-zsh-hook precmd prompt
+
+# Jump to project directories
 function jump() {
     cd ~/Projects/$1
 }
@@ -66,31 +84,11 @@ function _jump() {
 }
 
 alias j='jump'
-
-# Set terminal/window titles
-precmd() {
-    local tabtitle="$(basename "$PWD")"
-
-    echo -ne "\e]1;${tabtitle: -24}\a"
-    echo -ne "\e]2;$PWD\a"
-}
-
-preexec() {
-    echo -ne "\e]1;$2\a"
-    echo -ne "\e]2;$PWD\a"
-}
-
-# Load completions
-fpath=($HOME/.dotfiles/zsh/completions $fpath)
-
-autoload -U compinit
-compinit
-
 compdef _jump jump
 
-for file in $HOME/.dotfiles/zsh/*.zsh
-do
-    source $file
-done
+# Rust
+if [[ -d ~/.cargo/bin ]]; then
+    path=(~/.cargo/bin $path)
+fi
 
 #zprof
