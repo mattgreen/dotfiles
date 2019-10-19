@@ -1,0 +1,3 @@
+[submodule "zsh/gitstatus"]
+	path = zsh/gitstatus
+	url = https://github.com/romkatv/gitstatus.git
