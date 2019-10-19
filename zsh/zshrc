@@ -1,11 +1,6 @@
 #zmodload zsh/zprof
 
 # Initialize completions
-zcompdump="$HOME/.zcompdump"
-if [[ -s "$zcompdump" && (! -s "${zcompdump}.zwc" || "$zcompdump" -nt "${zcompdump}.zwc") ]]; then
-    zcompile "$zcompdump"
-fi
-
 autoload -Uz compinit
 compinit -C -d
 
