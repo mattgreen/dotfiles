@@ -45,7 +45,7 @@ add-zsh-hook precmd set_cmd_titles
 add-zsh-hook preexec set_exec_titles
 
 # Prompt
-source gitstatus/gitstatus.plugin.zsh
+source ~/.dotfiles/zsh/gitstatus/gitstatus.plugin.zsh
 gitstatus_stop PROMPT && gitstatus_start -s -1 -u -1 -c -1 -d -1 PROMPT
 
 autoload -Uz colors && colors
