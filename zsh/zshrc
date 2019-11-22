@@ -25,6 +25,7 @@ alias ...='cd ../..'
 alias reload!='. ~/.zshrc'
 
 alias gs='git status -s'
+alias gl="git log --graph --abbrev-commit --date-order --format=format:'%Cblue%h%Creset%C(bold red)%d%Creset %s <%an> %Cgreen(%ar)%Creset' --all"
 
 alias bench_dotfiles='time (repeat 10 zsh -is </dev/null)'
 
