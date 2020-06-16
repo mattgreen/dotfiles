@@ -3,3 +3,6 @@ Thumbs.db
 .powder
 .bundle
 xcuserdata
+
+# VSCode
+.vscode
