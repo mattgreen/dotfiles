@@ -1,0 +1,1 @@
+complete --command j --arguments '(/bin/ls ~/Projects)'
