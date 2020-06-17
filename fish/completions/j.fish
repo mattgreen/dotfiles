@@ -1,6 +1,6 @@
-function __fish_complete_projects
-    ls -F ~/Projects
+function __fish_j_completion
+    set --local comp (commandline -ct)
+    __fish_complete_directories "~/Projects/$comp" "" | string replace "~/Projects/" ""
 end
 
-
-complete --exclusive --command j --arguments '(__fish_complete_projects)'
+complete --exclusive --command j --arguments '(__fish_j_completion)'
