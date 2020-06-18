@@ -48,7 +48,7 @@ function __pure_git_info
   end
   popd
 
-  set -l git_dirty_mark
+  set -l git_dirty_mark "  "
   if set -q __pure_git_is_dirty
     set git_dirty_mark " •"
   end
