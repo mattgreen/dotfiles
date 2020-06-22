@@ -18,7 +18,6 @@ if status is-interactive
       set -g __prompt_git_static (__prompt_git_branch)
       set branch $__prompt_git_static
 
-      set -U $result ""
       set -l cmd "git status -unormal --porcelain --ignore-submodules 2>/dev/null | wc -l | sed 's/^ *//g'"
       fish -c "set -U $prompt_result ($cmd); kill -WINCH $fish_pid" >/dev/null 2>&1 &
     else
@@ -40,8 +39,10 @@ if status is-interactive
   end
 
   function fish_prompt
+      set -l cwd (pwd | string replace "$HOME" '~')
+
       echo ''
-      set_color green; echo -sn (dirs); set_color normal;
+      set_color green; echo -sn $cwd; set_color normal;
 
       set -l git_working_tree (command git rev-parse --show-toplevel 2>/dev/null)
       if test -n "$git_working_tree"
