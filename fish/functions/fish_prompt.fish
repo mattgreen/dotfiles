@@ -11,7 +11,7 @@ if status is-interactive
   function __prompt_git_status
     set -l branch ""
     set -l dirty ""
-    set -l uid (ps hotty $fish_pid | tail -n1 | sed 's/ttys0*//' | string replace ' ' '')
+    set -l uid (ps hotty $fish_pid | tail -n1 | string replace ' ' '')
     set -l prompt_result "__prompt_result_$uid"
     
     if ! set -q __prompt_git_static
@@ -48,7 +48,6 @@ if status is-interactive
           __prompt_git_status
       end
       
-      echo ''
-      echo '❯ '
+      printf '\n❯ '
   end
 end
