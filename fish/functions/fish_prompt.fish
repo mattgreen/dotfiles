@@ -40,7 +40,7 @@ if status is-interactive
         set -l cmd "git status -unormal --porcelain --ignore-submodules 2>/dev/null | wc -l | sed 's/^ *//g'"
         fish --private -c "set -U $prompt_result ($cmd); kill -WINCH $fish_pid" >/dev/null 2>&1 &
 
-        # Allow async calla chance to finish so we can appear synchronous
+        # Allow async call a chance to finish so we can appear synchronous
         sleep 0.02
       end
 
