@@ -17,5 +17,5 @@ Executed in   35.54 millis    fish           external
 ````
 
 ### Screenshot
-![Preview](http://f.cl.ly/items/0Y2d2A241z1r0j2U3D1q/preview.png)
+![Preview](https://user-images.githubusercontent.com/181487/85642728-4a6d1580-b660-11ea-8977-4d309e8f5160.png)
 
