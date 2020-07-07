@@ -41,7 +41,10 @@ if status is-interactive
                 fish --private -c "set -U $prompt_result ($cmd); kill -WINCH $fish_pid" >/dev/null 2>&1 &
 
                 # Allow async call a chance to finish so we can appear synchronous
-                sleep 0.015
+                # TODO: why doesn't this work for first command?
+                if test $__prompt_cmd_id -gt 0
+                    sleep 0.015
+                end
             end
 
             if set -q $prompt_result
