@@ -1,7 +1,7 @@
 if status is-interactive
     set -g __prompt_uid (ps hotty $fish_pid | tail -n1 | string replace ' ' '')
     set -g __prompt_cmd_id 0
-    set -g __prompt_git_state_cmd_id 0
+    set -g __prompt_git_state_cmd_id -1
 
     function __prompt_preexec --on-event fish_preexec
         set __prompt_cmd_id (math $__prompt_cmd_id + 1)
@@ -19,9 +19,9 @@ if status is-interactive
         end
 
         if test -z $__prompt_git_branch
-            set -l branch (git symbolic-ref --short HEAD)
+            set -l branch (command git symbolic-ref --short HEAD 2>/dev/null)
             if test -z $branch
-                set branch (git rev-parse --short HEAD 2>/dev/null)
+                set branch (command git rev-parse --short HEAD 2>/dev/null)
             end
 
             set -g __prompt_git_branch $branch
