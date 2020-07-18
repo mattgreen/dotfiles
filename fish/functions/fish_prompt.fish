@@ -1,14 +1,9 @@
 if status is-interactive
-    set -g __prompt_uid (ps hotty $fish_pid | tail -n1 | string replace ' ' '')
     set -g __prompt_cmd_id 0
     set -g __prompt_git_state_cmd_id -1
 
-    function __prompt_preexec --on-event fish_preexec
+    function __prompt_increment_cmd_id --on-event fish_preexec
         set __prompt_cmd_id (math $__prompt_cmd_id + 1)
-    end
-
-    function __prompt_cleanup --on-event fish_exit
-        set -e "__prompt_result_$__prompt_uid"
     end
 
     function __prompt_git_status
@@ -20,6 +15,10 @@ if status is-interactive
 
         if test -z $__prompt_git_branch
             set -l branch (command git symbolic-ref --short HEAD 2>/dev/null)
+            if test $status -ne 0
+                return 1
+            end
+
             if test -z $branch
                 set branch (command git rev-parse --short HEAD 2>/dev/null)
             end
@@ -28,17 +27,19 @@ if status is-interactive
         end
 
         if test -z $__prompt_dirty
-            set -l prompt_result "__prompt_result_$__prompt_uid"
+            if ! set -q __prompt_check_pid
+                set -l check_cmd "git status -unormal --porcelain --ignore-submodules 2>/dev/null | wc -l | sed 's/^ *//g'"
+                set -l cmd "if test ($check_cmd) != "0"; exit 1; else; exit 0; end"
 
-            if ! set -q __prompt_dirty_state
-                set -g __prompt_dirty_state 0
-            end
+                set -g __prompt_check_pid 0  # Prevent re-entry when invoking subshell
+                fish --private --command $cmd >/dev/null 2>/dev/null &
+                set -g __prompt_check_pid (jobs --last --pid)
 
-            if test $__prompt_dirty_state -eq 0
-                set -g __prompt_dirty_state 1
-
-                set -l cmd "git status -unormal --porcelain --ignore-submodules 2>/dev/null | wc -l | sed 's/^ *//g'"
-                fish --private -c "set -U $prompt_result ($cmd); kill -WINCH $fish_pid" >/dev/null 2>&1 &
+                function __prompt_check_finish --on-process-exit $__prompt_check_pid
+                    functions -e __prompt_check_finish
+                    set -g __prompt_dirty_state $argv[3]
+                    __fish_repaint
+                end
 
                 # Allow async call a chance to finish so we can appear synchronous
                 # TODO: why doesn't this work for first command?
@@ -47,24 +48,19 @@ if status is-interactive
                 end
             end
 
-            if set -q $prompt_result
+            if set -q __prompt_dirty_state
                 if test $__prompt_dirty_state -eq 1
-                    if test $$prompt_result != "0"
-                        set -g __prompt_dirty "•"
-                    end
-
-                    set -e $prompt_result
-                    set -e __prompt_dirty_state
+                    set -g __prompt_dirty "•"
+                else
+                    set -g __prompt_dirty ""
                 end
+
+                set -e __prompt_check_pid
+                set -e __prompt_dirty_state
             end
         end
 
-        set -l dirty $__prompt_dirty
-        if test -z $dirty
-            set -l dirty "…"
-        end
-
-        echo -n $__prompt_git_branch $dirty
+        echo -n $__prompt_git_branch $__prompt_dirty
     end
 
     function fish_prompt
@@ -73,10 +69,14 @@ if status is-interactive
         echo ''
         set_color green; echo -sn $cwd; set_color normal
 
-        set -l git_working_tree (command git rev-parse --show-toplevel 2>/dev/null)
-        if test -n "$git_working_tree"
-            echo -sn " on "
-            set_color blue; __prompt_git_status; set_color normal
+        if test $cwd != '~'
+            set -l git_state (__prompt_git_status)
+            if test $status -eq 0
+                echo -sn " on "
+                set_color blue;
+                echo -sn $git_state
+                set_color normal
+            end
         end
 
         echo -en '\n❯ '
