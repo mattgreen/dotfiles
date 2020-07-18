@@ -1,6 +1,8 @@
 if status is-interactive
     set -g __prompt_cmd_id 0
     set -g __prompt_git_state_cmd_id -1
+    set -g __prompt_git_branch ""
+    set -g __prompt_dirty ""
 
     function __prompt_increment_cmd_id --on-event fish_preexec
         set -g __prompt_cmd_id (math $__prompt_cmd_id + 1)
@@ -17,9 +19,9 @@ if status is-interactive
         if test $__prompt_cmd_id -ne $__prompt_git_state_cmd_id
             __prompt_abort_check
 
-            set -g __prompt_git_state_cmd_id $__prompt_cmd_id
-            set -g __prompt_git_branch ""
-            set -g __prompt_dirty ""
+            set __prompt_git_state_cmd_id $__prompt_cmd_id
+            set __prompt_git_branch ""
+            set __prompt_dirty ""
         end
 
         if test -z $__prompt_git_branch
@@ -37,11 +39,12 @@ if status is-interactive
 
         if test -z $__prompt_dirty
             if ! set -q __prompt_check_pid
+                set -l suspend_cmd 'kill -TSTP $fish_pid'
                 set -l check_cmd "git status -unormal --porcelain --ignore-submodules 2>/dev/null | wc -l | sed 's/^ *//g'"
                 set -l cmd "if test ($check_cmd) != "0"; exit 1; else; exit 0; end"
 
                 set -g __prompt_check_pid 0
-                command fish --private --command "suspend -f; $cmd" >/dev/null 2>&1
+                command fish --private --command "$suspend_cmd; $cmd" >/dev/null 2>&1 &
                 set -g __prompt_check_pid (jobs --last --pid)
 
                 function __prompt_check_finish --on-process-exit $__prompt_check_pid
@@ -55,7 +58,7 @@ if status is-interactive
                 # Allow async call a chance to finish so we can appear synchronous
                 # TODO: why doesn't this work for first command?
                 if test $__prompt_cmd_id -gt 0
-                    sleep 0.005
+                    sleep 0.01
                 end
             end
 
