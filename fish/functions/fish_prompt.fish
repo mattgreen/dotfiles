@@ -4,20 +4,16 @@ if status is-interactive
     set -g __prompt_git_branch ""
     set -g __prompt_dirty ""
 
-    function __prompt_increment_cmd_id --on-event fish_preexec
+    function __prompt_increment_cmd_id --on-event fish_prompt
         set -g __prompt_cmd_id (math $__prompt_cmd_id + 1)
-    end
-
-    function __prompt_abort_check
-        if set -q __prompt_check_pid
-            kill $__prompt_check_pid >/dev/null 2>&1
-            set -e __prompt_check_pid
-        end
     end
 
     function __prompt_git_status
         if test $__prompt_cmd_id -ne $__prompt_git_state_cmd_id
-            __prompt_abort_check
+            if set -q __prompt_check_pid
+                kill $__prompt_check_pid >/dev/null 2>&1
+                set -e __prompt_check_pid
+            end
 
             set __prompt_git_state_cmd_id $__prompt_cmd_id
             set __prompt_git_branch ""
@@ -47,9 +43,20 @@ if status is-interactive
                 command fish --private --command "$suspend_cmd; $cmd" >/dev/null 2>&1 &
                 set -g __prompt_check_pid (jobs --last --pid)
 
-                function __prompt_check_finish --on-process-exit $__prompt_check_pid
+                set -l cmd_id $__prompt_cmd_id
+                function __prompt_check_finish --inherit-variable cmd_id --on-process-exit $__prompt_check_pid
                     functions -e __prompt_check_finish
-                    set -g __prompt_dirty_state $argv[3]
+                    if test $cmd_id -ne $__prompt_cmd_id
+                        return 0
+                    end
+
+                    switch $argv[3]
+                        case 0
+                            set -g __prompt_dirty_state 0
+                        case 1
+                            set -g __prompt_dirty_state 1
+                    end
+
                     __fish_repaint
                 end
 
@@ -57,8 +64,8 @@ if status is-interactive
 
                 # Allow async call a chance to finish so we can appear synchronous
                 # TODO: why doesn't this work for first command?
-                if test $__prompt_cmd_id -gt 0
-                    sleep 0.01
+                if test $__prompt_cmd_id -gt 1
+                    sleep 0.015
                 end
             end
 
