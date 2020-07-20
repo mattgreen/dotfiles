@@ -56,14 +56,18 @@ function __prompt_git_status
                     functions -e __prompt_on_finish_$pid
 
                     if set -q __prompt_check_pid
-                        if test $pid = $__prompt_check_pid
+                        if test $pid -eq $__prompt_check_pid
                             switch $argv[3]
                                 case 0
                                     set -g __prompt_dirty_state 0
-                                    __fish_repaint
+                                    if status is-interactive
+                                        __fish_repaint
+                                    end
                                 case 1
                                     set -g __prompt_dirty_state 1
-                                    __fish_repaint
+                                    if status is-interactive
+                                        __fish_repaint
+                                    end
                             end
                         end
                     end
