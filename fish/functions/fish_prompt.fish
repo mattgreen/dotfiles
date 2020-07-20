@@ -40,39 +40,38 @@ function __prompt_git_status
 
     if test -z $__prompt_dirty
         if ! set -q __prompt_check_pid
-            set -l suspend_cmd 'kill -TSTP $fish_pid'
-            set -l check_cmd "git status -unormal --porcelain --ignore-submodules 2>/dev/null | wc -l | sed 's/^ *//g'"
+            set -l check_cmd "git status -unormal --porcelain --ignore-submodules 2>/dev/null | head -n1 | count"
             set -l cmd "if test ($check_cmd) != "0"; exit 1; else; exit 0; end"
 
-            set -g __prompt_check_pid 0
-            command fish --private --command "$suspend_cmd; $cmd" >/dev/null 2>&1 &
-            set -l pid (jobs --last --pid)
-            set -g __prompt_check_pid $pid
+            begin
+                block -l
 
-            function __prompt_on_finish_$pid --inherit-variable pid --on-process-exit $pid
-                functions -e __prompt_on_finish_$pid
+                set -g __prompt_check_pid 0
+                command fish --private --command "$cmd" >/dev/null 2>&1 &
+                set -l pid (jobs --last --pid)
 
-                if set -q __prompt_check_pid
-                    if test $pid = $__prompt_check_pid
-                        switch $argv[3]
-                            case 0
-                                set -g __prompt_dirty_state 0
-                                __fish_repaint
-                            case 1
-                                set -g __prompt_dirty_state 1
-                                __fish_repaint
+                set -g __prompt_check_pid $pid
+
+                function __prompt_on_finish_$pid --inherit-variable pid --on-process-exit $pid
+                    functions -e __prompt_on_finish_$pid
+
+                    if set -q __prompt_check_pid
+                        if test $pid = $__prompt_check_pid
+                            switch $argv[3]
+                                case 0
+                                    set -g __prompt_dirty_state 0
+                                    __fish_repaint
+                                case 1
+                                    set -g __prompt_dirty_state 1
+                                    __fish_repaint
+                            end
                         end
                     end
                 end
             end
 
-            command kill -CONT $pid >/dev/null 2>&1
-
             # Allow async call a chance to finish so we can appear synchronous
-            # TODO: why doesn't this work for first command?
-            if test $__prompt_cmd_id -gt 1
-                sleep 0.01
-            end
+            sleep 0.015
         end
 
         if set -q __prompt_dirty_state
