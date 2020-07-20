@@ -7,14 +7,18 @@ function __prompt_increment_cmd_id --on-event fish_prompt
     set -g __prompt_cmd_id (math $__prompt_cmd_id + 1)
 end
 
+function __prompt_abort_check
+    if set -q __prompt_check_pid
+        set -l pid $__prompt_check_pid
+        functions -e __prompt_on_finish_$pid
+        command kill $pid >/dev/null 2>&1
+        set -e __prompt_check_pid
+    end
+end
+
 function __prompt_git_status
     if test $__prompt_cmd_id -ne $__prompt_git_state_cmd_id
-        if set -q __prompt_check_pid
-            set -l pid $__prompt_check_pid
-            functions -e __prompt_on_finish_$pid
-            kill $pid >/dev/null 2>&1
-            set -e __prompt_check_pid
-        end
+        __prompt_abort_check
 
         set __prompt_git_state_cmd_id $__prompt_cmd_id
         set __prompt_git_branch ""
