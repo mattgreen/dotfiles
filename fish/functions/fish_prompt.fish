@@ -68,6 +68,11 @@ function __prompt_git_status
                                     if status is-interactive
                                         __fish_repaint
                                     end
+                                case '*'
+                                    set -g __prompt_dirty_state 2
+                                    if status is-interactive
+                                        __fish_repaint
+                                    end
                             end
                         end
                     end
@@ -79,10 +84,13 @@ function __prompt_git_status
         end
 
         if set -q __prompt_dirty_state
-            if test $__prompt_dirty_state -eq 1
-                set -g __prompt_dirty "•"
-            else
-                set -g __prompt_dirty ""
+            switch $__prompt_dirty_state
+                case 0
+                    set -g __prompt_dirty ""
+                case 1
+                    set -g __prompt_dirty "•"
+                case 2
+                    set -g __prompt_dirty "<err>"
             end
 
             set -e __prompt_check_pid
@@ -97,13 +105,15 @@ function fish_prompt
     set -l cwd (pwd | string replace "$HOME" '~')
 
     echo ''
-    set_color green; echo -sn $cwd; set_color normal
+    set_color green
+    echo -sn $cwd
+    set_color normal
 
     if test $cwd != '~'
         set -l git_state (__prompt_git_status)
         if test $status -eq 0
             echo -sn " on "
-            set_color blue;
+            set_color blue
             echo -sn $git_state
             set_color normal
         end
