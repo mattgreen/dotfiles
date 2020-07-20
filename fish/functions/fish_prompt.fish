@@ -26,13 +26,13 @@ function __prompt_git_status
     end
 
     if test -z $__prompt_git_branch
-        set -l branch (command git symbolic-ref --short HEAD 2>/dev/null)
+        set -l branch (command git --no-optional-locks symbolic-ref --short HEAD 2>/dev/null)
         if test $status -ne 0
             return 1
         end
 
         if test -z $branch
-            set branch (command git rev-parse --short HEAD 2>/dev/null)
+            set branch (command git --no-optional-locks rev-parse --short HEAD 2>/dev/null)
         end
 
         set -g __prompt_git_branch $branch
@@ -40,7 +40,7 @@ function __prompt_git_status
 
     if test -z $__prompt_dirty
         if ! set -q __prompt_check_pid
-            set -l check_cmd "git status -unormal --porcelain --ignore-submodules 2>/dev/null | head -n1 | count"
+            set -l check_cmd "git --no-optional-locks status -unormal --porcelain --ignore-submodules 2>/dev/null | head -n1 | count"
             set -l cmd "if test ($check_cmd) != "0"; exit 1; else; exit 0; end"
 
             begin
