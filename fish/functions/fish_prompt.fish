@@ -80,7 +80,7 @@ function __prompt_git_status
             end
 
             # Allow async call a chance to finish so we can appear synchronous
-            sleep 0.015
+            # sleep 0.015
         end
 
         if set -q __prompt_dirty_state
