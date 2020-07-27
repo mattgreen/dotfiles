@@ -17,6 +17,7 @@ function __prompt_abort_check
 end
 
 function __prompt_git_status
+    set -l prev_dirty $__prompt_dirty
     if test $__prompt_cmd_id -ne $__prompt_git_state_cmd_id
         __prompt_abort_check
 
@@ -78,15 +79,12 @@ function __prompt_git_status
                     end
                 end
             end
-
-            # Allow async call a chance to finish so we can appear synchronous
-            # sleep 0.015
         end
 
         if set -q __prompt_dirty_state
             switch $__prompt_dirty_state
                 case 0
-                    set -g __prompt_dirty ""
+                    set -g __prompt_dirty " "
                 case 1
                     set -g __prompt_dirty "•"
                 case 2
@@ -95,10 +93,22 @@ function __prompt_git_status
 
             set -e __prompt_check_pid
             set -e __prompt_dirty_state
+        else
+
         end
     end
 
-    echo -n $__prompt_git_branch $__prompt_dirty
+    set_color blue
+    echo -n $__prompt_git_branch ''
+    if ! test -z $__prompt_dirty
+        echo -n $__prompt_dirty
+    else if ! test -z $prev_dirty
+        set_color --dim blue
+        echo -n $prev_dirty
+        set_color normal
+    end
+    set_color normal
+
 end
 
 function fish_prompt
@@ -112,10 +122,7 @@ function fish_prompt
     if test $cwd != '~'
         set -l git_state (__prompt_git_status)
         if test $status -eq 0
-            echo -sn " on "
-            set_color blue
-            echo -sn $git_state
-            set_color normal
+            echo -sn " on $git_state"
         end
     end
 
