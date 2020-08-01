@@ -8,3 +8,6 @@ for file in $fisher_path/conf.d/*.fish
     builtin source $file 2> /dev/null
 end
 
+# Use nvim as editor if available
+set -gx EDITOR vim
+command -q nvim && set -gx EDITOR nvim
