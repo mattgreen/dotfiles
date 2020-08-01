@@ -1,0 +1,15 @@
+tap "homebrew/bundle"
+
+tap "homebrew/core"
+brew "fd"
+brew "fish"
+brew "fzf"
+brew "git"
+brew "neovim"
+brew "ripgrep"
+
+tap "homebrew/cask"
+cask "docker"
+
+tap "epk/epk"
+cask "font-sf-mono-nerd-font"
