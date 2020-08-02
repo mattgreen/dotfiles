@@ -26,3 +26,5 @@
     tags = tag
     stashes = stash list
     unstage = reset -q HEAD --
+[pull]
+    ff = only
