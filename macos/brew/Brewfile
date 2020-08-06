@@ -5,6 +5,7 @@ brew "fd"
 brew "fish"
 brew "fzf"
 brew "git"
+brew "mas"
 brew "neovim"
 brew "ripgrep"
 
@@ -13,3 +14,7 @@ cask "docker"
 
 tap "epk/epk"
 cask "font-sf-mono-nerd-font"
+
+mas "1Password", id: 443987910
+mas "Things", id: 904280696
+
