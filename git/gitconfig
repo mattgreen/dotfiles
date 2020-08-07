@@ -20,6 +20,7 @@
     fsckObjects = true
 [alias]
     cleanup = "!git branch --merged | grep -v master | xargs -n 1 git branch -d"
+    conflicts = "!git ls-files -u | cut -f 2 | sort -u"
     undo = reset --soft HEAD~1
     unpushed = log --stat @{u}..HEAD
     branches = branch
