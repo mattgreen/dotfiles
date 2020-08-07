@@ -27,13 +27,16 @@ function __prompt_git_status
     end
 
     if test -z $__prompt_git_branch
-        set -l branch (command git --no-optional-locks symbolic-ref --short HEAD 2>/dev/null)
+        set -l branch (command git --no-optional-locks symbolic-ref --short HEAD 2>&1)
         if test $status -ne 0
-            return 1
-        end
+            if string match 'fatal: not a git repository*' $branch
+                return 1
+            end
 
-        if test -z $branch
             set branch (command git --no-optional-locks rev-parse --short HEAD 2>/dev/null)
+            if test $status -eq 0
+                set branch "@$branch"
+            end
         end
 
         set -g __prompt_git_branch $branch
