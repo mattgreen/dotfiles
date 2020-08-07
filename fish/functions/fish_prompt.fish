@@ -62,17 +62,17 @@ function __prompt_git_status
                                 case 0
                                     set -g __prompt_dirty_state 0
                                     if status is-interactive
-                                        __fish_repaint
+                                        commandline -f repaint
                                     end
                                 case 1
                                     set -g __prompt_dirty_state 1
                                     if status is-interactive
-                                        __fish_repaint
+                                        commandline -f repaint
                                     end
                                 case '*'
                                     set -g __prompt_dirty_state 2
                                     if status is-interactive
-                                        __fish_repaint
+                                        commandline -f repaint
                                     end
                             end
                         end
