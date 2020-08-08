@@ -29,3 +29,5 @@
     unstage = reset -q HEAD --
 [pull]
     ff = only
+[init]
+	defaultBranch = main
