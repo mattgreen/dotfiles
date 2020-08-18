@@ -11,6 +11,7 @@ brew "ripgrep"
 
 tap "homebrew/cask"
 cask "docker"
+cask "mos"
 
 tap "epk/epk"
 cask "font-sf-mono-nerd-font"
