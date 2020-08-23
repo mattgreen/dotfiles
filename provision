@@ -1,7 +1,0 @@
-#!/bin/sh
-
-echo "Installing essentials via brew..."
-pushd macos/brew && brew bundle --no-lock; popd
-
-echo "Installing fisher packages..."
-fish -c 'fisher'
