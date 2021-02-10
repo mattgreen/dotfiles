@@ -1,1 +1,0 @@
-set -q j_path; or set -g j_path "$HOME/Projects"

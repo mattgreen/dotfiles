@@ -1,0 +1,6 @@
+[submodule "fish/plugins/jump.fish"]
+	path = fish/plugins/jump.fish
+	url = https://github.com/mattgreen/jump.fish.git
+[submodule "fish/plugins/lucid.fish"]
+	path = fish/plugins/lucid.fish
+	url = https://github.com/mattgreen/lucid.fish.git
