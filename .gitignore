@@ -1,3 +1,4 @@
 .netrwhist
 *.swp
 /fish/fish_variables
+/fish/config.local.fish
