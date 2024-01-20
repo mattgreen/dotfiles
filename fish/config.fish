@@ -9,6 +9,9 @@ set fish_color_operator normal
 set -gx HOMEBREW_NO_EMOJI 1
 set -gx HOMEBREW_NO_ANALYTICS 1
 
+# .NET
+fish_add_path --path --append "$HOME/.dotnet/tools"
+
 # Haskell
 fish_add_path --path --append "$HOME/.ghcup/bin"
 fish_add_path --path --append "$HOME/.cabal/bin"
