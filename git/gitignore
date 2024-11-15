@@ -4,3 +4,6 @@ Thumbs.db
 
 # VSCode
 .vscode
+
+# Language-specific
+.kotlin
