@@ -1,0 +1,8 @@
+command = /opt/homebrew/bin/fish --login
+
+theme = Tomorrow Night
+font-family = SF Mono
+font-size = 18
+shell-integration-features = no-cursor
+cursor-style = block
+cursor-style-blink = false
