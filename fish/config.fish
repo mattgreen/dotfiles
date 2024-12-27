@@ -3,11 +3,14 @@ set -gx EDITOR vim
 command -q nvim && set -gx EDITOR nvim
 
 # Be intentional about use of color
+fish_config theme choose none
 set fish_color_operator normal
 
 # Homebrew config
+fish_add_path --path --prepend "/opt/homebrew/bin"
 set -gx HOMEBREW_NO_EMOJI 1
 set -gx HOMEBREW_NO_ANALYTICS 1
+set -gx HOMEBREW_NO_ENV_HINTS 1
 set -gx HOMEBREW_AUTO_UPDATE_SECS 86400
 
 # Ruby
