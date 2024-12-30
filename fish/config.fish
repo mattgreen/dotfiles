@@ -4,6 +4,7 @@ command -q nvim && set -gx EDITOR nvim
 
 # Be intentional about use of color
 fish_config theme choose none
+set fish_color_autosuggestion 636363
 set fish_color_operator normal
 
 # Homebrew config
