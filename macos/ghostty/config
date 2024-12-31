@@ -1,15 +1,20 @@
 command = /opt/homebrew/bin/fish --login
 
-macos-titlebar-style = native
-window-theme = system
 macos-icon = custom-style
 macos-icon-ghost-color = #000000
 macos-icon-screen-color = #000000
 
+macos-titlebar-style = native
+window-theme = system
+window-padding-x = 4
+window-padding-y = 2
+
 theme = Tomorrow Night
-font-family = SF Mono
+font-family = SFMono-Regular
 font-size = 18
-adjust-cell-width = -1
+font-thicken = true
+adjust-cell-height = -2
+
 shell-integration-features = no-cursor
 cursor-style = block
 cursor-style-blink = false
