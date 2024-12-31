@@ -13,6 +13,8 @@ theme = Tomorrow Night
 font-family = SFMono-Regular
 font-size = 18
 font-thicken = true
+font-feature = -calt
+
 adjust-cell-height = -2
 
 shell-integration-features = no-cursor
