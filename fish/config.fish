@@ -19,6 +19,8 @@ fish_add_path --path --prepend "/usr/local/opt/ruby/bin"
 
 # .NET
 set -gx DOTNET_CLI_TELEMETRY_OPTOUT 1
+set -gx DOTNET_WATCH_RESTART_ON_RUDE_EDIT 1
+set -gx DOTNET_WATCH_SUPPRESS_LAUNCH_BROWSER 1
 fish_add_path --path --append "$HOME/.dotnet/tools"
 
 # Godot

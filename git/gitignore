@@ -2,8 +2,18 @@
 .DS_Store
 Thumbs.db
 
+# Editors
+.idea
+
 # VSCode
 .vscode
 
-# Language-specific
+# .NET
+[Dd]ebug/
+[Rr]elease/
+x64/
+[Bb]in/
+[Oo]bj/
+
+# Kotlin
 .kotlin
