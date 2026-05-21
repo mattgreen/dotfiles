@@ -48,22 +48,15 @@ set -gx HOMEBREW_NO_ANALYTICS 1
 set -gx HOMEBREW_NO_ENV_HINTS 1
 set -gx HOMEBREW_AUTO_UPDATE_SECS 86400
 
-# Ruby
-fish_add_path --path --prepend "/usr/local/opt/ruby/bin"
-
 # .NET
+fish_add_path --path --append "$HOME/.dotnet/tools"
 set -gx DOTNET_CLI_TELEMETRY_OPTOUT 1
 set -gx DOTNET_WATCH_RESTART_ON_RUDE_EDIT 1
 set -gx DOTNET_WATCH_SUPPRESS_LAUNCH_BROWSER 1
-fish_add_path --path --append "$HOME/.dotnet/tools"
 
 # Godot
-set -gx GODOT "$HOME/Library/Application Support/godotenv/godot/bin/godot"
 fish_add_path --path --append "$HOME/Library/Application Support/godotenv/godot/bin"
-
-# Haskell
-fish_add_path --path --append "$HOME/.ghcup/bin"
-fish_add_path --path --append "$HOME/.cabal/bin"
+set -gx GODOT "$HOME/Library/Application Support/godotenv/godot/bin/godot"
 
 # Rust
 fish_add_path --path --append "$HOME/.cargo/bin"
