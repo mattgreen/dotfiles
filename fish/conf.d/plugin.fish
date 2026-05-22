@@ -1,4 +1,4 @@
-set --local plugins (find "$__fish_config_dir/plugins" -type d -mindepth 1 -maxdepth 1 -not -path plugins)
+set --local plugins (find "$__fish_config_dir/plugins" -mindepth 1 -maxdepth 1 -type d)
 
 for plugin in $plugins
     if test -d "$plugin/completions"; and not contains "$plugin/completions" $fish_complete_path
